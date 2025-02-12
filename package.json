@@ -1,0 +1,19 @@
+{
+  "name": "goal-tracker",
+  "version": "1.0.0",
+  "description": "Just finishing up learning MERN, I completed a beginner tutorials and This is a self made project to practice what I learned.\r This project is a simple goal tracker that allows users to create, read, update, and delete goals",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon backend/server.js"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.10.0"
+  }
+}
