@@ -19,5 +19,5 @@ const goalSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-export const goal = new mongoose.model("Goal", goalSchema)
+export const Goal = new mongoose.model("Goal", goalSchema)
 
