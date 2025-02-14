@@ -12,7 +12,7 @@ function Navbar() {
 
             <ul className='hidden md:flex space-x-6'>
                 <li><a href="/" className='hover:text-gray-300 transition'>Home</a></li>
-                <li><a href="/add" className='hover:text-gray-300 transition'>Add</a></li>
+                <li><a href="/create" className='hover:text-gray-300 transition'>Add</a></li>
             </ul>
 
 
