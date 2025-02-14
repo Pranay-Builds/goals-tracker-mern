@@ -3,6 +3,7 @@ import { useState } from "react";
 
 function Create() {
 
+    const { createGoal } = useGoalsStore();
 
     const [ newGoal, setNewGoal ] = useState({
         title: "",
@@ -11,7 +12,27 @@ function Create() {
         startDate: "",
     })
 
+
     console.log(newGoal)
+
+    const handleCreateGoal = async () => {
+
+        if (newGoal.title && newGoal.description && newGoal.deadline && newGoal.startDate) {
+            const success = await createGoal(newGoal)
+            
+            if (success) {
+                alert("Goal created successfully! Good luck!")
+                setNewGoal({
+                    title: "",
+                    description: "",
+                    deadline: "",
+                    startDate: "",
+                })
+            }
+        } else {
+            alert("Please fill in all fields")
+        }
+    }
 
     return (
       <div className="min-h-screen">
@@ -71,6 +92,10 @@ function Create() {
               <button
                 type="submit"
                 className="w-full cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+                onClick={(e) => {
+                    e.preventDefault()
+                    handleCreateGoal()
+                }}
               >
                 🚀 Create Goal
               </button>

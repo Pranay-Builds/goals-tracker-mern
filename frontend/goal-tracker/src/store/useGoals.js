@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export const useGoalsStore = create((set) => ({
+export const useGoalsStore = create((set, get) => ({
   goals: [],
   setGoals: (goals) => set({ goals }),
 
@@ -12,6 +12,8 @@ export const useGoalsStore = create((set) => ({
   },
 
   deleteGoal: async (id) => {
+    const { goals } = get();
+
     const res = await fetch(`/api/goals/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
@@ -29,11 +31,15 @@ export const useGoalsStore = create((set) => ({
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(goalData),
-    })
+    });
 
-    const data = await res.json()
-    console.log(data)
+    const data = await res.json();
 
-    set({ goals: [...goals, data.data]} );
-  }
+    if (res.ok && data?.data) {
+      set((state) => ({ goals: [...state.goals, data.data] }));  
+      return true;
+    }
+
+    return false;  
+  },
 }));

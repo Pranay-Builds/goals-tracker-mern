@@ -5,7 +5,7 @@ import { FaTrashAlt } from "react-icons/fa";
 function Home() {
   const { goals, fetchGoals, deleteGoal } = useGoalsStore();
 
-  
+
 
   const [completedGoals, setCompletedGoals] = useState(() => {
     return JSON.parse(localStorage.getItem("completedGoals")) || [];
@@ -28,8 +28,11 @@ function Home() {
   };
 
   const handleDeleteGoal = (goalId) => {
-    alert("Are you sure you want to delete this goal?");
-    deleteGoal(goalId);
+    const confirmed = window.confirm("Are you sure you want to delete this goal?");
+
+    if (confirmed) {
+      deleteGoal(goalId); 
+    }
   }
 
   return (
@@ -41,11 +44,11 @@ function Home() {
         ) : (
           goals.map((goal) => {
             const isCompleted = completedGoals.includes(goal._id);
-            
+
             return (
               <div
                 key={goal._id}
-                className={`p-6 rounded-xl shadow-lg transition-shadow transform hover:scale-105
+                className={`p-6 mt-3 rounded-xl shadow-lg transition-shadow transform hover:scale-105
                   border border-transparent hover:border-blue-500 ease-in-out duration-300
                   ${isCompleted ? "bg-gray-400 dark:bg-gray-700 opacity-70" : "bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900"}`}
               >
@@ -68,17 +71,16 @@ function Home() {
                 </div>
 
                 <button
-                  className={`w-full px-4 py-2 rounded ${
-                    isCompleted
+                  className={`w-full px-4 py-2 rounded ${isCompleted
                       ? "bg-gray-500 text-white cursor-not-allowed"
                       : "bg-blue-500 hover:bg-blue-600 text-white"
-                  }`}
+                    }`}
                   onClick={() => toggleCompletion(goal._id)}
                 >
                   {isCompleted ? "Completed ✅" : "Mark as Completed"}
                 </button>
 
-                <button className='px-4 py-2 rounded cursor-pointer bg-red-500 hover:bg-red-600 text-white mt-3' onClick={handleDeleteGoal(goal._id)}>
+                <button className='px-4 py-2 rounded cursor-pointer bg-red-500 hover:bg-red-600 text-white mt-3' onClick={() => handleDeleteGoal(goal._id)}>
                   <FaTrashAlt />
                 </button>
               </div>
