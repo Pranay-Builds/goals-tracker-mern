@@ -14,6 +14,21 @@ router.get('/', async (req, res) => {
     }
 })
 
+// Fetch a particular goal by ID
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+    
+    try {
+        const goal = await Goal.findById(id);
+        if (!goal) {
+            return res.status(404).json({ success: false, message: 'Goal not found'})
+        }
+        res.status(200).json({ success: true, data: goal });
+    } catch (err) {
+        res.status(500).json({ success: false, message: 'Error fetching goal' });
+    }
+})
+
 // Create a goal
 router.post('/', async (req, res) => {
     const { title, description, startDate, deadline } = req.body;

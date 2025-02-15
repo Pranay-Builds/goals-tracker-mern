@@ -11,6 +11,14 @@ export const useGoalsStore = create((set, get) => ({
     set({ goals: data.data });
   },
 
+  fetchGoalById: async (id) => {
+    const res = await fetch(`/api/goals/${id}`);
+    const data = await res.json();
+    console.log(data)
+
+    return data.data;
+  },
+
   deleteGoal: async (id) => {
     const { goals } = get();
 
@@ -42,4 +50,21 @@ export const useGoalsStore = create((set, get) => ({
 
     return false;  
   },
+
+  updateGoal: async (id, goalData) => {
+    const res = await fetch(`/api/goals/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(goalData)
+    })
+
+    const data = await res.json()
+
+    if (res.ok && data?.data) {
+      set((state) => ({ goals: state.goals.map((goal) => goal._id === id ? data.data : goal) }));
+      return true;
+    }
+    
+    return false;
+  }
 }));

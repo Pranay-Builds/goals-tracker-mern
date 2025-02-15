@@ -16,7 +16,7 @@ const goalSchema = new mongoose.Schema({
     deadline: {
         type: Date,
         required: true
-    }
+    },
 }, { timestamps: true });
 
 export const Goal = new mongoose.model("Goal", goalSchema)

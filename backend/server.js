@@ -15,6 +15,8 @@ app.get('/', (req, res) => {
 
 app.use('/api/goals', router);
 
-app.listen(process.env.PORT, () => {
-    console.log("Server started on http://localhost:"+process.env.PORT)
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+    console.log("Server started on http://localhost/"+PORT)
 })
